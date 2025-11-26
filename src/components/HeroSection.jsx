@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { LightRays } from "./ui/light-rays";
 
 const parseMarkup = (text) => {
     if (!text) return null;
@@ -62,8 +63,9 @@ const parseMarkup = (text) => {
 
 function HeroSection({ content, title, animation }) {
     return (
-        <section className="text-center min-h-[80vh] flex flex-col justify-center items-center bg-background">
-            <div className="max-w-5xl mx-auto px-4">
+        <section className="relative overflow-hidden text-center min-h-[80vh] flex flex-col justify-center items-center bg-background">
+            <LightRays color="rgba(251, 213, 213, 0.09)" count={15} blur={15} />
+            <div className="relative z-10 max-w-5xl mx-auto px-4">
                 <motion.h1
                     {...animation}
                     transition={{ delay: 0.5, duration: 1, ease: ['easeInOut'] }}
