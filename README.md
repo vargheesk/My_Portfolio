@@ -1,16 +1,48 @@
-# React + Vite
+# Vargheeskutty Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimalistic, black-and-white data science portfolio website built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Node.js**: v18 or higher
+- **npm**: v9 or higher
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React, Vite, Tailwind CSS
+- **UI Components**: Framer Motion, Lucide React
+- **Backend/Database**: Supabase
 
-## Expanding the ESLint configuration
+## Setup & Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/vargheesk/My_Portfolio.git
+    cd My_Portfolio
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+    *(This installs all libraries listed in `package.json`)*
+
+3.  **Environment Variables**:
+    Create a `.env` file in the root directory with your Supabase credentials:
+    ```env
+    VITE_SUPABASE_URL=your_supabase_url
+    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+
+4.  **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+
+## Features
+
+- **Anti-Gravity Hero Section**: Interactive physics-based animations.
+- **Experience Timeline**: Chronological display of professional experience.
+- **Project Showcase**: Grid view of data science projects.
+- **Admin Dashboard**: Secure interface for managing content.
+
