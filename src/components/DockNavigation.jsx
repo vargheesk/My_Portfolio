@@ -1,32 +1,38 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Home, User, Briefcase, FolderGit2, Mail } from "lucide-react";
+import { Home, User, Briefcase, FolderGit2, Mail, Cpu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function DockNavigation() {
     const mouseX = useMotionValue(Infinity);
+    const navigate = useNavigate();
 
     const links = [
         { label: "Home", icon: Home, href: "/" },
-        { label: "About", icon: User, href: "#about" },
-        { label: "Experience", icon: Briefcase, href: "#experience" },
-        { label: "Projects", icon: FolderGit2, href: "#projects" },
-        { label: "Contact", icon: Mail, href: "#contact" },
+
+        { label: "Skills", icon: Cpu, href: "/skills" },
+        { label: "Experience", icon: Briefcase, href: "/experience" },
+        { label: "Projects", icon: FolderGit2, href: "/projects" },
+        { label: "Contact", icon: Mail, href: "/#contact" },
     ];
 
     return (
         <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex h-16 items-end gap-4 rounded-2xl bg-gray-50/10 px-4 pb-3 backdrop-blur-md border border-white/20 dark:border-white/10 dark:bg-neutral-900/30 shadow-minimal"
         >
             {links.map((link, i) => (
-                <DockIcon mouseX={mouseX} key={i} {...link} />
+                <DockIcon mouseX={mouseX} key={i} {...link} navigate={navigate} />
             ))}
         </motion.div>
     );
 }
 
-function DockIcon({ mouseX, icon: Icon, label, href }) {
+function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
     const ref = useRef(null);
 
     const distance = useTransform(mouseX, (val) => {
@@ -38,12 +44,22 @@ function DockIcon({ mouseX, icon: Icon, label, href }) {
     const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
     const handleClick = (e) => {
-        if (href.startsWith("#")) {
-            e.preventDefault();
-            const element = document.querySelector(href);
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
+        e.preventDefault();
+        if (href.startsWith("/#")) {
+            // Handle hash navigation from any page
+            const [path, hash] = href.split("#");
+            if (window.location.pathname !== path) {
+                navigate(path);
+                setTimeout(() => {
+                    const element = document.getElementById(hash);
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            } else {
+                const element = document.getElementById(hash);
+                if (element) element.scrollIntoView({ behavior: "smooth" });
             }
+        } else {
+            navigate(href);
         }
     };
 

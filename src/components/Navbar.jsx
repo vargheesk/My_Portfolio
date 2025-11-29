@@ -11,8 +11,16 @@ export default function Navbar() {
         >
             <Link to="/" className="text-xl font-bold tracking-tighter">
                 Vargheeskutty.
-                
+
             </Link>
+            <div className="flex gap-6">
+                <Link to="/about" className="text-sm font-medium uppercase tracking-widest hover:text-gray-400 transition-colors">
+                    About
+                </Link>
+                <Link to="/skills" className="text-sm font-medium uppercase tracking-widest hover:text-gray-400 transition-colors">
+                    Skills
+                </Link>
+            </div>
 
         </motion.nav>
     );

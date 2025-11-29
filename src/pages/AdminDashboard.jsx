@@ -140,6 +140,7 @@ export default function AdminDashboard() {
             github_url: formData.get("github_url"),
             demo_url: formData.get("demo_url"),
             tags: formData.get("tags").split(",").map(t => t.trim()),
+            is_featured: formData.get("is_featured") === "on",
         };
 
         let error;
@@ -561,6 +562,10 @@ export default function AdminDashboard() {
                                     <label className="block text-xs font-bold uppercase tracking-widest mb-1">Tags (comma separated)</label>
                                     <input name="tags" defaultValue={editingProject?.tags?.join(", ")} className="w-full bg-transparent border border-border p-2" />
                                 </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="is_featured" defaultChecked={editingProject?.is_featured} id="is_featured_project" />
+                                    <label htmlFor="is_featured_project" className="text-xs font-bold uppercase tracking-widest">Featured Project (Show on Home)</label>
+                                </div>
                                 <div className="flex gap-4 pt-4">
                                     <button type="submit" className="px-6 py-2 bg-foreground text-background font-bold uppercase tracking-widest">
                                         Save Project
@@ -797,6 +802,10 @@ export default function AdminDashboard() {
                                 <div>
                                     <label className="block text-xs font-bold uppercase tracking-widest mb-1">Issuer</label>
                                     <input name="issuer" defaultValue={editingCertificate?.issuer} className="w-full bg-transparent border border-border p-2" required />
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" name="is_featured" defaultChecked={editingCertificate?.is_featured} id="is_featured_cert" />
+                                    <label htmlFor="is_featured_cert" className="text-xs font-bold uppercase tracking-widest">Featured Certificate (Show on Home)</label>
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold uppercase tracking-widest mb-1">Image URL</label>

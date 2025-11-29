@@ -11,6 +11,7 @@ import ScrollReveal from "../components/ScrollReveal";
 import Noise from "../components/Noise";
 import { DotPattern } from "../components/magicui/dot-pattern";
 import { cn } from "../lib/utils";
+import ResumeSection from "../components/ResumeSection";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -132,128 +133,53 @@ export default function Home() {
                 />
             </div>
 
-            {/* About Section */}
-            <section id="about" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8">
-                            About Me
-                        </h2>
-                        <div className="prose prose-lg dark:prose-invert">
-                            <ScrollReveal
-                                baseOpacity={0}
-                                enableBlur={true}
-                                baseRotation={5}
-                                blurStrength={10}
-                                wordAnimationEnd="bottom center"
-                                scrub={1}
-                                textClassName="text-xl leading-relaxed text-muted-foreground"
-                            >
-                                {profile?.bio || "I am a Data Scientist passionate about uncovering insights from data..."}
-                            </ScrollReveal>
-                        </div>
 
-                        <div className="mt-12 flex gap-6">
-                            {profile?.resume_url && (
-                                <a
-                                    href={profile.resume_url}
-                                    target="_blank"
-                                    className="px-8 py-3  text-red-600 border border-black  uppercase tracking-widest hover:opacity-50 transition-opacity"
-                                >
-                                    Download Resume
-                                </a>
-                            )}
-                        </div>
-                    </div>
-                    <div className="relative aspect-square bg-muted overflow-hidden rounded-2xl shadow-minimal">
-                        <img
-                            src={profile?.avatar_url}
-                            onError={(e) => {
-                                if (e.target.src.includes("profile.png")) {
-                                    e.target.onerror = null;
-                                    e.target.src = "https://i.postimg.cc/PxzpRWV0/Adobe-Express-file123.png";
-                                } else {
-                                    e.target.src = "/profile.png";
-                                }
-                            }}
-                            alt="Profile"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                </div>
-            </section>
 
 
             {/* Experience Section */}
-            < section id="experience" className="py-32 px-6 md:px-12 max-w-5xl mx-auto" >
+            <section id="experience" className="py-32 px-6 md:px-12 max-w-5xl mx-auto">
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center">
                     Experience
                 </h2>
-                <Timeline items={experience} />
-            </section >
-
-
-            {/* Skills / Tech Stack (List View) */}
-            <section className="relative py-32 px-6 md:px-12 border-y border-border/50 overflow-hidden bg-muted/20">
-                <DotPattern
-                    className={cn(
-                        "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
-                    )}
-                />
-                <div className="relative z-10 max-w-4xl mx-auto">
-                    <h3 className="text-center text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-16">
-                        Technical Skill
-                    </h3>
-
-                    <div className="space-y-12">
-                        {Object.entries(skills.reduce((acc, skill) => {
-                            const category = skill.category || "Other";
-                            if (!acc[category]) acc[category] = [];
-                            acc[category].push(skill.name);
-                            return acc;
-                        }, {})).map(([category, skillNames]) => (
-                            <div key={category} className="grid md:grid-cols-[1fr_1.5fr] gap-4 md:gap-6 items-baseline max-w-3xl mx-auto">
-                                <h4 className="text-xl font-bold uppercase tracking-widest text-muted-foreground text-center md:text-right">
-                                    {category} :
-                                </h4>
-                                <p className="text-xl md:text-2xl font-medium leading-relaxed text-center md:text-left">
-                                    {skillNames.join(", ")}
-                                </p>
-                            </div>
-                        ))}
-
-                        {skills.length === 0 && (
-                            <div className="text-center text-muted-foreground">
-                                No skills found. Add them in the Admin Dashboard.
-                            </div>
-                        )}
-                    </div>
+                <Timeline items={experience.slice(0, 3)} />
+                <div className="text-center mt-12">
+                    <a href="/experience" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
+                        View All Experience
+                    </a>
                 </div>
             </section>
+
+
+
 
 
 
             {/* Projects Section */}
-            < section id="projects" className="py-32 px-6 md:px-12 bg-muted/30" >
+            <section id="projects" className="py-32 px-6 md:px-12 bg-muted/30">
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20">
                         Selected Works
                     </h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {projects.map((project, index) => (
+                        {projects.filter(p => p.is_featured).map((project, index) => (
                             <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
+                    <div className="text-center mt-16">
+                        <a href="/projects" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
+                            View All Projects
+                        </a>
+                    </div>
                 </div>
-            </section >
+            </section>
 
             {/* Certificates Section */}
-            < section className="py-32 px-6 md:px-12 max-w-7xl mx-auto" >
+            <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12 text-center">
                     Certifications
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {certificates.map((cert) => (
+                    {certificates.filter(c => c.is_featured).map((cert) => (
                         <a
                             key={cert.id}
                             href={cert.credential_url}
@@ -273,10 +199,18 @@ export default function Home() {
                         </a>
                     ))}
                 </div>
-            </section >
+                <div className="text-center mt-12">
+                    <a href="/certificates" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
+                        View All Certifications
+                    </a>
+                </div>
+            </section>
+
+            {/* Resume Section */}
+            <ResumeSection resumeUrl={profile?.resume_url} />
 
             {/* Contact Section */}
-            < section id="contact" className="relative py-32 px-6 md:px-12 bg-black text-white overflow-hidden" >
+            <section id="contact" className="relative py-32 px-6 md:px-12 bg-black text-white overflow-hidden">
                 <Noise patternAlpha={15} />
                 <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left: Socials & Info */}
