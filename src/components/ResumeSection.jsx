@@ -96,9 +96,9 @@ const Slide = (props) => {
 const Phrase = () => {
     return (
         <div className={"px-3 gap-2 flex items-center"}>
-            <p className="flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
-            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
-            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
+            <p className="flex items-baseline">SEE MY RESUME<span className="w-2 h-2 bg-red-500 rounded-full inline-block ml-1"></span></p>
+            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-2 h-2 bg-red-500 rounded-full inline-block ml-1"></span></p>
+            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-2 h-2 bg-red-500 rounded-full inline-block ml-1"></span></p>
         </div>
     );
 };
