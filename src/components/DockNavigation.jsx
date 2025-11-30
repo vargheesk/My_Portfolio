@@ -50,7 +50,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
 
     const handleClick = (e) => {
         e.preventDefault();
-        vibrate(50);
+        vibrate(35);
         mouseX.set(Infinity); // Reset zoom on click (fixes mobile sticky hover)
         if (href.startsWith("/#")) {
             // Handle hash navigation from any page
@@ -75,7 +75,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
             ref={ref}
             href={href}
             onClick={handleClick}
-            onMouseEnter={() => vibrate(10)} // Haptic on hover
+            onMouseEnter={() => vibrate(30)} // Haptic on hover
             style={{ width }}
             className="aspect-square rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center relative group shadow-sm border border-black/5 dark:border-white/5 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-700"
         >
