@@ -62,7 +62,7 @@ function ResumeSection({ resumeUrl }) {
                         rotate: [0, -10, 10, -10, 10, 0],
                         transition: { duration: 0.5 }
                     }}
-                    onMouseEnter={() => vibrate(20)}
+                    onClick={() => vibrate(20)}
                 />
             </a>
         </section>

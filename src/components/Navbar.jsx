@@ -13,14 +13,13 @@ export default function Navbar() {
             <Link
                 to="/"
                 className="text-xl font-bold tracking-tighter"
-                onMouseEnter={() => vibrate(10)}
+                onClick={() => vibrate(10)}
             >
                 Vargheeskutty.
             </Link>
             <div className="flex gap-6">
                 {/* Links removed as per request */}
             </div>
-
         </motion.nav>
     );
 }
