@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { vibrate } from "../utils/haptics";
 
 export default function Navbar() {
     return (
@@ -9,17 +10,15 @@ export default function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-            <Link to="/" className="text-xl font-bold tracking-tighter">
+            <Link
+                to="/"
+                className="text-xl font-bold tracking-tighter"
+                onMouseEnter={() => vibrate(10)}
+            >
                 Vargheeskutty.
-
             </Link>
             <div className="flex gap-6">
-                <Link to="/about" className="text-sm font-medium uppercase tracking-widest hover:text-gray-400 transition-colors">
-                    About
-                </Link>
-                <Link to="/skills" className="text-sm font-medium uppercase tracking-widest hover:text-gray-400 transition-colors">
-                    Skills
-                </Link>
+                {/* Links removed as per request */}
             </div>
 
         </motion.nav>
