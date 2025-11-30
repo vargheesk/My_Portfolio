@@ -160,86 +160,11 @@ export default function AdminDashboard() {
         }
     }
 
-    async function handleSaveExperience(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const expData = {
-            role: formData.get("role"),
-            company: formData.get("company"),
-            start_date: formData.get("start_date"),
-            end_date: formData.get("end_date") || null,
-            description: formData.get("description"),
-            display_order: parseInt(formData.get("display_order") || 0),
-        };
 
-        let error;
-        if (editingExperience) {
-            const res = await supabase.from("experience").update(expData).eq("id", editingExperience.id);
-            error = res.error;
-        } else {
-            const res = await supabase.from("experience").insert([expData]);
-            error = res.error;
-        }
 
-        if (error) alert("Error: " + error.message);
-        else {
-            setIsFormOpen(false);
-            setEditingExperience(null);
-            fetchExperience();
-        }
-    }
 
-    async function handleSaveSkill(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const skillData = {
-            name: formData.get("name"),
-            category: formData.get("category"),
-        };
 
-        let error;
-        if (editingSkill) {
-            const res = await supabase.from("skills").update(skillData).eq("id", editingSkill.id);
-            error = res.error;
-        } else {
-            const res = await supabase.from("skills").insert([skillData]);
-            error = res.error;
-        }
 
-        if (error) alert("Error: " + error.message);
-        else {
-            setIsFormOpen(false);
-            setEditingSkill(null);
-            fetchSkills();
-        }
-    }
-
-    async function handleSaveCertificate(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const certData = {
-            title: formData.get("title"),
-            issuer: formData.get("issuer"),
-            image_url: formData.get("image_url"),
-            credential_url: formData.get("credential_url"),
-        };
-
-        let error;
-        if (editingCertificate) {
-            const res = await supabase.from("certificates").update(certData).eq("id", editingCertificate.id);
-            error = res.error;
-        } else {
-            const res = await supabase.from("certificates").insert([certData]);
-            error = res.error;
-        }
-
-        if (error) alert("Error: " + error.message);
-        else {
-            setIsFormOpen(false);
-            setEditingCertificate(null);
-            fetchCertificates();
-        }
-    }
 
     async function handleDeleteItem(table, id, fetcher) {
         if (confirm("Are you sure you want to delete this item?")) {
@@ -327,34 +252,7 @@ export default function AdminDashboard() {
         }
     }
 
-    async function handleSave(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const projectData = {
-            title: formData.get("title"),
-            description: formData.get("description"),
-            image_url: formData.get("image_url"),
-            github_url: formData.get("github_url"),
-            demo_url: formData.get("demo_url"),
-            tags: formData.get("tags").split(",").map(t => t.trim()),
-        };
 
-        let error;
-        if (editingProject) {
-            const res = await supabase.from("projects").update(projectData).eq("id", editingProject.id);
-            error = res.error;
-        } else {
-            const res = await supabase.from("projects").insert([projectData]);
-            error = res.error;
-        }
-
-        if (error) alert("Error: " + error.message);
-        else {
-            setIsFormOpen(false);
-            setEditingProject(null);
-            fetchProjects();
-        }
-    }
 
     function parseFlexibleDate(dateStr) {
         if (!dateStr) return null;
@@ -449,6 +347,7 @@ export default function AdminDashboard() {
             issuer: formData.get("issuer"),
             image_url: formData.get("image_url"),
             credential_url: formData.get("credential_url"),
+            is_featured: formData.get("is_featured") === "on",
         };
 
         let error;
