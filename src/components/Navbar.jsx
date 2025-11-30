@@ -13,7 +13,7 @@ export default function Navbar() {
             <Link
                 to="/"
                 className="text-xl font-bold tracking-tighter"
-                onClick={() => vibrate(35)}
+                onClick={() => vibrate(15)}
             >
                 Vargheeskutty.
             </Link>

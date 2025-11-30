@@ -26,7 +26,7 @@ export default function Skills() {
         <div className="min-h-screen pt-32 pb-12 px-6 md:px-12 bg-background relative overflow-hidden">
             <DotPattern
                 className={cn(
-                    "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+                    "[mask-image:radial-gradient(300px_circle_at_50%_60%,white,transparent)]"
                 )}
             />
             <div className="relative z-10 max-w-4xl mx-auto">
