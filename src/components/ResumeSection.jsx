@@ -1,100 +1,106 @@
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import LogoLoop from "./LogoLoop";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-function ProximityText({ mouseX, children }) {
-    const ref = useRef(null);
-
-    const distance = useTransform(mouseX, (val) => {
-        const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-        return val - bounds.x - bounds.width / 2;
+function ResumeSection({ resumeUrl }) {
+    const container = useRef();
+    const { scrollYProgress } = useScroll({
+        target: container,
+        offset: ["start end", "end start"],
     });
 
-    const weightSync = useTransform(distance, [-150, 0, 150], [400, 700, 400]);
-    const weight = useSpring(weightSync, { mass: 0.1, stiffness: 150, damping: 12 });
-
-    const scaleSync = useTransform(distance, [-150, 0, 150], [1, 1.3, 1]);
-    const scale = useSpring(scaleSync, { mass: 0.1, stiffness: 150, damping: 12 });
-
-    const opacitySync = useTransform(distance, [-150, 0, 150], [0.5, 1, 0.5]);
-    const opacity = useSpring(opacitySync, { mass: 0.1, stiffness: 150, damping: 12 });
-
     return (
-        <motion.span
-            ref={ref}
-            style={{ fontWeight: weight, scale, opacity }}
-            className="text-4xl md:text-6xl uppercase tracking-tighter mx-4 font-sans inline-block font-bold"
-        >
-            {children}
-        </motion.span>
-    );
-}
-
-export default function ResumeSection({ resumeUrl }) {
-    const mouseX = useMotionValue(Infinity);
-
-    const textItem = {
-        node: (
-            <ProximityText mouseX={mouseX}>
-                See My Resume
-            </ProximityText>
-        )
-    };
-
-    const items = Array(8).fill(textItem);
-
-    return (
-        <section
-            className="relative py-4 mb-20 bg-background border-y border-border overflow-hidden"
-            onMouseMove={(e) => mouseX.set(e.pageX)}
-            onMouseLeave={() => mouseX.set(Infinity)}
-        >
-            <div className="flex flex-col gap-0">
-                <LogoLoop
-                    logos={items}
-                    direction="left"
-                    speed={50}
-                    pauseOnHover={false}
-                    logoHeight={50}
-                    gap={0}
-                    fadeOut={true}
+        <section className=" bg-white py-12 text-black text-4xl/8 font-black flex flex-col items-center tracking-tighter relative overflow-hidden font-geist">
+            <div
+                ref={container}
+                className="w-full flex flex-col gap-0"
+                style={{
+                    maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+                    WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
+                }}
+            >
+                <Slide
+                    direction={"left"}
+                    left={"-15%"}
+                    progress={scrollYProgress}
+                    speed={100}
                 />
-                <LogoLoop
-                    logos={items}
-                    direction="right"
+                <Slide
+                    direction={"right"}
+                    left={"-25%"}
+                    progress={scrollYProgress}
                     speed={50}
-                    pauseOnHover={false}
-                    logoHeight={50}
-                    gap={0}
-                    fadeOut={true}
                 />
-                <LogoLoop
-                    logos={items}
-                    direction="left"
-                    speed={50}
-                    pauseOnHover={false}
-                    logoHeight={50}
-                    gap={0}
-                    fadeOut={true}
+                <Slide
+                    direction={"left"}
+                    left={"-15%"}
+                    progress={scrollYProgress}
+                    speed={75}
+                />
+                <Slide
+                    direction={"right"}
+                    left={"-15%"}
+                    progress={scrollYProgress}
+                    speed={150}
+                />
+                <Slide
+                    direction={"left"}
+                    left={"-10%"}
+                    progress={scrollYProgress}
+                    speed={30}
                 />
             </div>
-
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                <a
-                    href={resumeUrl}
-                    target="_blank"
-                    className="pointer-events-auto flex flex-col items-center group transform transition-transform hover:scale-110 duration-300"
-                >
-                    <img
-                        src="/resume_sticker.png"
-                        alt="Download Resume"
-                        className="w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-2xl rotate-12 group-hover:rotate-0 transition-transform duration-300"
-                    />
-                    <span className="mt-2 px-3 py-1 bg-foreground text-background text-[10px] font-bold uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                        Click to Download
-                    </span>
-                </a>
-            </div>
+            <p className="!text-lg/4 font-normal tracking-normal mt-8">
+                ( Click to download )
+            </p>
+            <a href={resumeUrl} target="_blank" className="absolute inset-0 flex items-center justify-center">
+                <motion.img
+                    src="/resume_sticker.png"
+                    alt="Download Resume"
+                    className="scale-110 w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-2xl"
+                    whileHover={{
+                        rotate: [0, -10, 10, -10, 10, 0],
+                        transition: { duration: 0.5 }
+                    }}
+                />
+            </a>
         </section>
     );
 }
+
+const Slide = (props) => {
+    const direction = props.direction === "left" ? -1 : 1;
+    const translateX = useTransform(props.progress, [0, 1], [
+        150 * direction,
+        -props.speed * direction,
+    ]);
+
+    return (
+        <motion.div
+            style={{ x: translateX, left: props.left }}
+            className="relative flex whitespace-nowrap"
+        >
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+            <Phrase />
+        </motion.div>
+    );
+};
+
+const Phrase = () => {
+    return (
+        <div className={"px-3 gap-2 flex items-center"}>
+            <p className="flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
+            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
+            <p className="hidden lg:flex items-baseline">SEE MY RESUME<span className="w-3 h-3 bg-red-500 rounded-full inline-block ml-1"></span></p>
+        </div>
+    );
+};
+
+export default ResumeSection;

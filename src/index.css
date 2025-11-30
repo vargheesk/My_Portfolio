@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
 @import "tailwindcss";
 
@@ -26,6 +27,10 @@
     --input: 0 0% 90%;
     --ring: 0 0% 0%;
     --radius: 0.5rem;
+    --accent-fg: 83 76% 37%;
+    /* #6FA617 converted to HSL approx */
+    --accent-bg: 83 100% 72%;
+    /* #C8FF70 converted to HSL approx */
   }
 
   .dark {
@@ -58,6 +63,18 @@
 
   .shadow-minimal-hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .font-geist {
+    font-family: 'Geist', sans-serif;
+  }
+
+  .bg-accent-bg {
+    background-color: hsl(var(--accent-bg));
+  }
+
+  .text-accent-fg {
+    color: hsl(var(--accent-fg));
   }
 }
 
