@@ -50,7 +50,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
 
     const handleClick = (e) => {
         e.preventDefault();
-        vibrate(10);
+        vibrate(50);
         mouseX.set(Infinity); // Reset zoom on click (fixes mobile sticky hover)
         if (href.startsWith("/#")) {
             // Handle hash navigation from any page
