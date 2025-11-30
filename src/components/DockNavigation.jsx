@@ -11,12 +11,31 @@ export default function DockNavigation() {
 
     const links = [
         { label: "Home", icon: Home, href: "/" },
-
         { label: "Skills", icon: Cpu, href: "/skills" },
         { label: "Experience", icon: Briefcase, href: "/experience" },
         { label: "Projects", icon: FolderGit2, href: "/projects" },
         { label: "Contact", icon: Mail, href: "/#contact" },
     ];
+
+    const lastVibratedItem = useRef(null);
+
+    const handleTouchMove = (e) => {
+        const touch = e.touches[0];
+        mouseX.set(touch.clientX);
+
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        const dockItem = element?.closest('[data-dock-item]');
+
+        if (dockItem) {
+            const label = dockItem.getAttribute('data-dock-item');
+            if (lastVibratedItem.current !== label) {
+                vibrate(30);
+                lastVibratedItem.current = label;
+            }
+        } else {
+            lastVibratedItem.current = null;
+        }
+    };
 
     return (
         <motion.div
@@ -25,9 +44,12 @@ export default function DockNavigation() {
             transition={{ duration: 1, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
-            onTouchMove={(e) => mouseX.set(e.touches[0].clientX)} // Enable zoom on touch drag
+            onTouchMove={handleTouchMove} // Enable zoom and haptics on touch drag
             onTouchStart={(e) => mouseX.set(e.touches[0].clientX)} // Enable zoom on touch start
-            onTouchEnd={() => mouseX.set(Infinity)} // Reset on touch end for mobile
+            onTouchEnd={() => {
+                mouseX.set(Infinity);
+                lastVibratedItem.current = null;
+            }} // Reset on touch end for mobile
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex h-16 items-end gap-4 rounded-2xl bg-gray-50/10 px-4 pb-3 backdrop-blur-md border border-white/20 dark:border-white/10 dark:bg-neutral-900/30 shadow-minimal"
         >
             {links.map((link, i) => (
@@ -76,6 +98,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
             href={href}
             onClick={handleClick}
             onMouseEnter={() => vibrate(30)} // Haptic on hover
+            data-dock-item={label} // Identifier for touch drag haptics
             style={{ width }}
             className="aspect-square rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center relative group shadow-sm border border-black/5 dark:border-white/5 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-700"
         >
