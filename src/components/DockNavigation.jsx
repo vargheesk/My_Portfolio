@@ -29,7 +29,7 @@ export default function DockNavigation() {
         if (dockItem) {
             const label = dockItem.getAttribute('data-dock-item');
             if (lastVibratedItem.current !== label) {
-                vibrate(20);
+                vibrate(30);
                 lastVibratedItem.current = label;
             }
         } else {
@@ -72,7 +72,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
 
     const handleClick = (e) => {
         e.preventDefault();
-        vibrate(15);
+        vibrate(30);
         mouseX.set(Infinity); // Reset zoom on click (fixes mobile sticky hover)
         if (href.startsWith("/#")) {
             // Handle hash navigation from any page
@@ -97,7 +97,7 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
             ref={ref}
             href={href}
             onClick={handleClick}
-            onMouseEnter={() => vibrate(20)} // Haptic on hover
+            onMouseEnter={() => vibrate(30)} // Haptic on hover
             data-dock-item={label} // Identifier for touch drag haptics
             style={{ width }}
             className="aspect-square rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center relative group shadow-sm border border-black/5 dark:border-white/5 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-700"
