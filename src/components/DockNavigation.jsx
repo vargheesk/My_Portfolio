@@ -45,7 +45,10 @@ export default function DockNavigation() {
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
             onTouchMove={handleTouchMove} // Enable zoom and haptics on touch drag
-            onTouchStart={(e) => mouseX.set(e.touches[0].clientX)} // Enable zoom on touch start
+            onTouchStart={(e) => {
+                mouseX.set(e.touches[0].clientX);
+                vibrate(30); // Trigger immediate haptic and unlock API
+            }} // Enable zoom on touch start
             onTouchEnd={() => {
                 mouseX.set(Infinity);
                 lastVibratedItem.current = null;
