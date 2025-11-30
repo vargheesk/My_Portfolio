@@ -3,6 +3,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Home, User, Briefcase, FolderGit2, Mail, Cpu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+import { vibrate } from "../utils/haptics";
+
 export default function DockNavigation() {
     const mouseX = useMotionValue(Infinity);
     const navigate = useNavigate();
@@ -23,6 +25,7 @@ export default function DockNavigation() {
             transition={{ duration: 1, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
+            onTouchEnd={() => mouseX.set(Infinity)} // Reset on touch end for mobile
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex h-16 items-end gap-4 rounded-2xl bg-gray-50/10 px-4 pb-3 backdrop-blur-md border border-white/20 dark:border-white/10 dark:bg-neutral-900/30 shadow-minimal"
         >
             {links.map((link, i) => (
@@ -45,6 +48,8 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
 
     const handleClick = (e) => {
         e.preventDefault();
+        vibrate(10);
+        mouseX.set(Infinity); // Reset zoom on click (fixes mobile sticky hover)
         if (href.startsWith("/#")) {
             // Handle hash navigation from any page
             const [path, hash] = href.split("#");
