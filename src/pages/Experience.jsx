@@ -3,6 +3,9 @@ import { supabase } from "../lib/supabase";
 import Timeline from "../components/Timeline";
 import LoadingScreen from "../components/LoadingScreen";
 
+import { cn } from "../lib/utils";
+import { InteractiveGridPattern } from "../components/magicui/interactive-grid-pattern";
+
 export default function Experience() {
     const [loading, setLoading] = useState(true);
     const [experience, setExperience] = useState([]);
@@ -12,6 +15,7 @@ export default function Experience() {
             const { data } = await supabase
                 .from("experience")
                 .select("*")
+                .eq("is_hidden", false)
                 .order("start_date", { ascending: false });
             setExperience(data || []);
             setLoading(false);
@@ -25,7 +29,13 @@ export default function Experience() {
 
     return (
         <div className="min-h-screen pt-32 pb-12 px-6 md:px-12 bg-background relative overflow-hidden">
-            <div className="max-w-5xl mx-auto">
+            <InteractiveGridPattern
+                className={cn(
+                    "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+                    "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+                )}
+            />
+            <div className="relative z-10 max-w-5xl mx-auto">
                 <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center">
                     Experience
                 </h1>

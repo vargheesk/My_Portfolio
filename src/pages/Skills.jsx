@@ -10,7 +10,11 @@ export default function Skills() {
 
     useEffect(() => {
         async function fetchSkills() {
-            const { data: skillData } = await supabase.from("skills").select("*");
+            const { data: skillData } = await supabase
+                .from("skills")
+                .select("*")
+                .eq("is_hidden", false)
+                .order("created_at", { ascending: true });
             setSkills(skillData || []);
             setLoading(false);
         }

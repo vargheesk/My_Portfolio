@@ -12,6 +12,8 @@ import Noise from "../components/Noise";
 import { DotPattern } from "../components/magicui/dot-pattern";
 import { cn } from "../lib/utils";
 import ResumeSection from "../components/ResumeSection";
+import { InteractiveHoverButton } from "../components/ui/interactive-hover-button";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -31,20 +33,32 @@ export default function Home() {
             const { data: expData } = await supabase
                 .from("experience")
                 .select("*")
+                .eq("is_hidden", false)
                 .order("start_date", { ascending: false });
             setExperience(expData || []);
 
             // Fetch Projects
-            const { data: projData } = await supabase.from("projects").select("*");
+            const { data: projData } = await supabase
+                .from("projects")
+                .select("*")
+                .eq("is_hidden", false);
             setProjects(projData || []);
 
             // Fetch Skills
-            const { data: skillData } = await supabase.from("skills").select("*");
+            const { data: skillData } = await supabase
+                .from("skills")
+                .select("*")
+                .eq("is_hidden", false);
             setSkills(skillData || []);
 
             // Fetch Certificates
-            const { data: certData } = await supabase.from("certificates").select("*");
+            const { data: certData } = await supabase
+                .from("certificates")
+                .select("*")
+                .eq("is_hidden", false);
             setCertificates(certData || []);
+
+            setLoading(false);
         }
 
         fetchData();
@@ -142,10 +156,10 @@ export default function Home() {
                     Experience
                 </h2>
                 <Timeline items={experience.slice(0, 3)} />
-                <div className="text-center mt-12">
-                    <a href="/experience" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
-                        View All Experience
-                    </a>
+                <div className="text-center mt-12 flex justify-center">
+                    <Link to="/experience">
+                        <InteractiveHoverButton>View All Experience</InteractiveHoverButton>
+                    </Link>
                 </div>
             </section>
 
@@ -200,10 +214,10 @@ export default function Home() {
                             </a>
                         ))}
                     </div>
-                    <div className="text-center mt-12">
-                        <a href="/certificates" className="text-sm font-bold uppercase tracking-widest border-b border-white pb-1 hover:opacity-50 transition-opacity">
-                            View All Certifications
-                        </a>
+                    <div className="text-center mt-12 flex justify-center">
+                        <Link to="/certificates">
+                            <InteractiveHoverButton className="text-black bg-white hover:bg-white/90">View All Certifications</InteractiveHoverButton>
+                        </Link>
                     </div>
                 </div>
             </section>

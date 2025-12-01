@@ -8,7 +8,11 @@ export default function Certificates() {
 
     useEffect(() => {
         async function fetchCertificates() {
-            const { data } = await supabase.from("certificates").select("*").order("created_at", { ascending: false });
+            const { data } = await supabase
+                .from("certificates")
+                .select("*")
+                .eq("is_hidden", false)
+                .order("created_at", { ascending: false });
             setCertificates(data || []);
             setLoading(false);
         }
