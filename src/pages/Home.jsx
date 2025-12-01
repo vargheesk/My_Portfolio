@@ -147,7 +147,49 @@ export default function Home() {
                 />
             </div>
 
-
+            {/* About Section */}
+            <section id="about" className="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8">
+                            About Me
+                        </h2>
+                        <div className="prose prose-lg dark:prose-invert mb-8">
+                            <ScrollReveal
+                                baseOpacity={0}
+                                enableBlur={true}
+                                baseRotation={5}
+                                blurStrength={10}
+                                wordAnimationEnd="bottom center"
+                                scrub={1}
+                                textClassName="text-xl leading-relaxed text-muted-foreground"
+                            >
+                                {profile?.bio || "I am a Data Scientist..."}
+                            </ScrollReveal>
+                        </div>
+                        {profile?.resume_url && (
+                            <a
+                                href={profile.resume_url}
+                                target="_blank"
+                                className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest border border-foreground hover:bg-foreground hover:text-background transition-colors"
+                            >
+                                Download Resume
+                            </a>
+                        )}
+                    </div>
+                    <div className="relative aspect-square bg-muted overflow-hidden rounded-2xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <img
+                            src={profile?.avatar_url || "/profile.png"}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/profile.png";
+                            }}
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                </div>
+            </section>
 
 
             {/* Experience Section */}
@@ -156,9 +198,9 @@ export default function Home() {
                     Experience
                 </h2>
                 <Timeline items={experience.slice(0, 3)} />
-                <div className="text-center mt-12 flex justify-center">
+                <div className="mt-12 flex justify-end md:justify-center">
                     <Link to="/experience">
-                        <InteractiveHoverButton>View All Experience</InteractiveHoverButton>
+                        <InteractiveHoverButton className="rounded-md dark:bg-neutral-800 dark:text-white dark:border-neutral-700">View All Experience</InteractiveHoverButton>
                     </Link>
                 </div>
             </section>
@@ -179,9 +221,9 @@ export default function Home() {
                             <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
-                    <div className="text-center mt-16 flex justify-center">
+                    <div className="mt-16 flex justify-end md:justify-center">
                         <Link to="/projects">
-                            <InteractiveHoverButton>View All Projects</InteractiveHoverButton>
+                            <InteractiveHoverButton className="rounded-md dark:bg-neutral-800 dark:text-white dark:border-neutral-700">View All Projects</InteractiveHoverButton>
                         </Link>
                     </div>
                 </div>
@@ -214,9 +256,9 @@ export default function Home() {
                             </a>
                         ))}
                     </div>
-                    <div className="text-center mt-12 flex justify-center">
+                    <div className="mt-12 flex justify-end md:justify-center">
                         <Link to="/certificates">
-                            <InteractiveHoverButton className="text-black bg-white hover:bg-white/90">View All Certifications</InteractiveHoverButton>
+                            <InteractiveHoverButton className="rounded-md bg-white text-black hover:bg-white/90 dark:bg-neutral-800 dark:text-white dark:border-neutral-700">View All Certifications</InteractiveHoverButton>
                         </Link>
                     </div>
                 </div>

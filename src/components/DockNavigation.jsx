@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Home, User, Briefcase, FolderGit2, Mail, Cpu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 
 import { vibrate } from "../utils/haptics";
 
@@ -58,6 +59,8 @@ export default function DockNavigation() {
             {links.map((link, i) => (
                 <DockIcon mouseX={mouseX} key={i} {...link} navigate={navigate} />
             ))}
+            <div className="w-px h-8 bg-white/20 dark:bg-white/10 mx-1 self-center" />
+            <DockThemeToggle mouseX={mouseX} />
         </motion.div>
     );
 }
@@ -111,5 +114,33 @@ function DockIcon({ mouseX, icon: Icon, label, href, navigate }) {
                 {label}
             </div>
         </motion.a>
+    );
+}
+
+function DockThemeToggle({ mouseX }) {
+    const ref = useRef(null);
+
+    const distance = useTransform(mouseX, (val) => {
+        const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+        return val - bounds.x - bounds.width / 2;
+    });
+
+    const widthSync = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+    const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
+
+    return (
+        <motion.div
+            ref={ref}
+            style={{ width }}
+            onMouseEnter={() => vibrate(30)}
+            className="aspect-square rounded-full flex items-center justify-center relative group"
+        >
+            <AnimatedThemeToggler
+                className="w-full h-full rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center shadow-sm border border-black/5 dark:border-white/5 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-700"
+            />
+            <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium bg-black/80 text-white px-2 py-1 rounded pointer-events-none whitespace-nowrap backdrop-blur-sm">
+                Theme
+            </div>
+        </motion.div>
     );
 }

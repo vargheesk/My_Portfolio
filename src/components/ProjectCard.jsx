@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function ProjectCard({ project, index }) {
     return (
         <motion.div
-            className="group relative block bg-card border border-border overflow-hidden"
+            className="group relative block bg-card dark:bg-neutral-900 border border-border overflow-hidden"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
