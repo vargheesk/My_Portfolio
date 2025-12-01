@@ -179,10 +179,10 @@ export default function Home() {
                             <ProjectCard key={project.id} project={project} index={index} />
                         ))}
                     </div>
-                    <div className="text-center mt-16">
-                        <a href="/projects" className="text-sm font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
-                            View All Projects
-                        </a>
+                    <div className="text-center mt-16 flex justify-center">
+                        <Link to="/projects">
+                            <InteractiveHoverButton>View All Projects</InteractiveHoverButton>
+                        </Link>
                     </div>
                 </div>
             </section>

@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { cn } from "../lib/utils";
 
 const ExperienceItem = ({ role, company, start_date, end_date, description, index }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     const formatDate = (dateString) => {
         if (!dateString) return "";
         const date = new Date(dateString);
@@ -9,31 +13,44 @@ const ExperienceItem = ({ role, company, start_date, end_date, description, inde
 
     const duration = `${formatDate(start_date)} - ${end_date ? formatDate(end_date) : "Present"}`;
 
+    // Truncate logic
+    const MAX_LENGTH = 150;
+    const shouldTruncate = description && description.length > MAX_LENGTH;
+    const textToShow = isExpanded ? description : (shouldTruncate ? description.slice(0, MAX_LENGTH) : description);
+
     return (
         <motion.div
-            className="relative pl-8 md:pl-0 md:grid md:grid-cols-12 gap-8 mb-12 group"
-            initial={{ opacity: 0, y: 50 }}
+            className="relative pl-8 md:pl-12 mb-12 group last:mb-0"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
         >
             {/* Timeline Line */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-border md:left-1/2 md:-ml-px group-last:bottom-auto group-last:h-full" />
+            <div className="absolute left-2 top-2 bottom-[-48px] w-px bg-border group-last:bottom-auto group-last:h-full" />
 
             {/* Dot */}
-            <div className="absolute left-[-4px] top-2 w-2 h-2 rounded-full bg-foreground md:left-1/2 md:-ml-1" />
+            <div className="absolute left-[5px] top-2.5 w-1.5 h-1.5 rounded-full bg-foreground ring-2 ring-background" />
 
-            {/* Left Side (Date) */}
-            <div className="md:col-span-5 md:text-right md:pr-8 mb-2 md:mb-0">
-                <span className="text-sm font-mono text-muted-foreground">{duration}</span>
-            </div>
+            {/* Content */}
+            <div className="flex flex-col items-start text-left">
+                <span className="text-xs font-mono text-muted-foreground mb-1">{duration}</span>
+                <h3 className="text-xl font-bold uppercase tracking-tight leading-none mb-1">{role}</h3>
+                <div className="text-sm font-medium text-muted-foreground mb-3">{company}</div>
 
-            {/* Right Side (Content) */}
-            <div className="md:col-span-7 md:col-start-7 md:pl-8">
-                <h3 className="text-xl font-bold uppercase tracking-tight">{role}</h3>
-                <div className="text-lg font-medium mb-2">{company}</div>
-                <p className="text-muted-foreground leading-relaxed max-w-prose">
-                    {description}
+                <p className="text-muted-foreground leading-relaxed max-w-prose text-sm md:text-base">
+                    {textToShow}
+                    {shouldTruncate && (
+                        <>
+                            {!isExpanded && "..."}
+                            <button
+                                onClick={() => setIsExpanded(!isExpanded)}
+                                className="inline-block ml-2 text-xs font-bold uppercase tracking-widest hover:opacity-50 transition-opacity underline decoration-1 underline-offset-2"
+                            >
+                                {isExpanded ? "Read Less" : "Read More"}
+                            </button>
+                        </>
+                    )}
                 </p>
             </div>
         </motion.div>
@@ -42,7 +59,7 @@ const ExperienceItem = ({ role, company, start_date, end_date, description, inde
 
 export default function Timeline({ items }) {
     return (
-        <div className="relative py-20">
+        <div className="relative py-10 max-w-3xl mx-auto">
             {items.map((item, index) => (
                 <ExperienceItem key={item.id || index} {...item} index={index} />
             ))}
