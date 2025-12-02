@@ -33,7 +33,7 @@ export default function Projects() {
                     Projects
                 </h1>
                 <div className="mb-16">
-                    <SparklesSeparator />
+                    <SparklesSeparator lineWidth="w-1/6" />
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (

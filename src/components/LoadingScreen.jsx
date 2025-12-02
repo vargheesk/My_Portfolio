@@ -52,7 +52,7 @@ export default function LoadingScreen({ onComplete }) {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black px-8"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white dark:bg-black px-8"
         >
             <div>
                 <motion.h1
@@ -61,13 +61,13 @@ export default function LoadingScreen({ onComplete }) {
                         filter: 'blur(10px)'
                     }}
                     animate={controls}
-                    className="text-4xl md:text-6xl text-center font-medium tracking-tightest text-white"
+                    className="text-4xl md:text-6xl text-center font-medium tracking-tightest text-black dark:text-white"
                 >
                     PORTFOLIO OF VARGHEESKUTTY ELDHOSE.
                 </motion.h1>
 
                 <motion.div
-                    className="h-0.5 w-full mt-4 bg-white/80"
+                    className="h-0.5 w-full mt-4 bg-black/80 dark:bg-white/80"
                     initial={{ scaleX: 0, width: "100%" }}
                     animate={barControls}
                     style={{

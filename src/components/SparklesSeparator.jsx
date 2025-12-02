@@ -8,8 +8,8 @@ export function SparklesSeparator({ lineWidth = "w-full", gradientColor = "via-i
             {/* Gradients */}
             <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent ${gradientColor} to-transparent h-[2px] ${lineWidth} blur-sm`} />
             <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent ${gradientColor} to-transparent h-px ${lineWidth}`} />
-            <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-3/4 blur-sm`} />
-            <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-3/4`} />
+            <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] ${lineWidth} blur-sm`} />
+            <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px ${lineWidth}`} />
 
             {/* White Core for Dark Mode Visibility */}
             <div className={`absolute inset-x-0 mx-auto top-0 bg-gradient-to-r from-transparent via-white to-transparent h-px ${lineWidth} opacity-50`} />
