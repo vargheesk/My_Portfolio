@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import SessionTimeout from "./components/SessionTimeout";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import ProjectDetails from "./pages/ProjectDetails";
@@ -27,6 +29,8 @@ function App() {
           <Route path="/certificates" element={<Certificates />} />
           <Route path="/alive" element={<Alive />} />
         </Routes>
+        <SpeedInsights />
+        <SessionTimeout />
       </Layout>
     </Router>
   );

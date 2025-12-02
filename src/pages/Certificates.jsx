@@ -40,17 +40,26 @@ export default function Certificates() {
                             key={cert.id}
                             href={cert.credential_url}
                             target="_blank"
-                            className="group block aspect-[4/3] bg-muted relative overflow-hidden"
+                            className="group block h-full"
                         >
-                            {cert.image_url ? (
-                                <img src={cert.image_url} alt={cert.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center p-4 text-center text-xs uppercase font-bold">
-                                    {cert.title}
+                            <div className="h-full border border-border/50 bg-gray-50 dark:bg-neutral-900 rounded-md overflow-hidden hover:border-primary/50 transition-colors shadow-sm">
+                                <div className="aspect-[4/3] bg-muted relative overflow-hidden border-b border-border/50">
+                                    {cert.image_url ? (
+                                        <img src={cert.image_url} alt={cert.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center p-4 text-center text-xs uppercase font-bold text-muted-foreground">
+                                            {cert.title}
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white p-4 text-center">
-                                <span className="text-sm font-bold uppercase">{cert.issuer}</span>
+                                <div className="p-4">
+                                    <h3 className="font-bold text-lg leading-tight mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-2">
+                                        {cert.title}
+                                    </h3>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                                        {cert.issuer}
+                                    </p>
+                                </div>
                             </div>
                         </a>
                     ))}
