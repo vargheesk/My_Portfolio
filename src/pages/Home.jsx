@@ -172,7 +172,7 @@ export default function Home() {
                             <a
                                 href={profile.resume_url}
                                 target="_blank"
-                                className="inline-block px-8 py-3 text-sm font-normal uppercase tracking-widest border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                className="inline-block px-8 py-3 text-sm font-normal uppercase tracking-widest border border-neutral-700 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
                             >
                                 Download Resume
                             </a>
@@ -231,7 +231,7 @@ export default function Home() {
             </section>
 
             {/* Certificates Section */}
-            <section className="py-32 px-6 md:px-12 bg-background">
+            <section className="py-32 px-6 md:px-12 bg-black text-white">
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-12 text-center">
                         Certifications
@@ -244,8 +244,8 @@ export default function Home() {
                                 target="_blank"
                                 className="group block h-full"
                             >
-                                <div className="h-full border border-border/50 bg-gray-50 dark:bg-neutral-900 rounded-md overflow-hidden hover:border-primary/50 transition-colors shadow-sm">
-                                    <div className="aspect-[4/3] bg-muted relative overflow-hidden border-b border-border/50">
+                                <div className="h-full border border-white/10 bg-neutral-900 rounded-md overflow-hidden hover:border-primary/50 transition-colors shadow-sm">
+                                    <div className="aspect-[4/3] bg-muted relative overflow-hidden border-b border-white/10">
                                         {cert.image_url ? (
                                             <img src={cert.image_url} alt={cert.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                                         ) : (
@@ -255,10 +255,10 @@ export default function Home() {
                                         )}
                                     </div>
                                     <div className="p-4">
-                                        <h3 className="font-bold text-lg leading-tight mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-2">
+                                        <h3 className="font-bold text-lg leading-tight mb-2 text-white group-hover:text-primary transition-colors line-clamp-2">
                                             {cert.title}
                                         </h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                                        <p className="text-sm text-gray-400 uppercase tracking-wider">
                                             {cert.issuer}
                                         </p>
                                     </div>
@@ -268,7 +268,7 @@ export default function Home() {
                     </div>
                     <div className="mt-12 flex justify-end md:justify-center">
                         <Link to="/certificates">
-                            <InteractiveHoverButton className="rounded-md dark:bg-neutral-800 dark:text-white dark:border-neutral-700">View All Certifications</InteractiveHoverButton>
+                            <InteractiveHoverButton className="rounded-md bg-white text-black hover:bg-white/90 dark:bg-neutral-800 dark:text-white dark:border-neutral-700">View All Certifications</InteractiveHoverButton>
                         </Link>
                     </div>
                 </div>
