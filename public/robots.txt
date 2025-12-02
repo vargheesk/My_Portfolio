@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /alive
+
+Sitemap: https://vargheeskutty-eldhose.vercel.app/sitemap.xml
