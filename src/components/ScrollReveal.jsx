@@ -17,7 +17,8 @@ const ScrollReveal = ({
     textClassName = '',
     rotationEnd = 'bottom bottom',
     wordAnimationEnd = 'bottom bottom',
-    scrub = true
+    scrub = true,
+    once = false
 }) => {
     const containerRef = useRef(null);
 
@@ -39,7 +40,13 @@ const ScrollReveal = ({
 
         const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
-        gsap.fromTo(
+        // If once is true, force scrub to false and use toggleActions to prevent reversal
+        const effectiveScrub = once ? false : scrub;
+        const toggleActions = once ? "play none none none" : undefined;
+
+        const tweens = [];
+
+        tweens.push(gsap.fromTo(
             el,
             { transformOrigin: '0% 50%', rotate: baseRotation },
             {
@@ -50,14 +57,16 @@ const ScrollReveal = ({
                     scroller,
                     start: 'top bottom',
                     end: rotationEnd,
-                    scrub
+                    scrub: effectiveScrub,
+                    toggleActions,
+                    once
                 }
             }
-        );
+        ));
 
         const wordElements = el.querySelectorAll('.word');
 
-        gsap.fromTo(
+        tweens.push(gsap.fromTo(
             wordElements,
             { opacity: baseOpacity, willChange: 'opacity' },
             {
@@ -69,13 +78,15 @@ const ScrollReveal = ({
                     scroller,
                     start: 'top bottom-=20%',
                     end: wordAnimationEnd,
-                    scrub
+                    scrub: effectiveScrub,
+                    toggleActions,
+                    once
                 }
             }
-        );
+        ));
 
         if (enableBlur) {
-            gsap.fromTo(
+            tweens.push(gsap.fromTo(
                 wordElements,
                 { filter: `blur(${blurStrength}px)` },
                 {
@@ -87,16 +98,21 @@ const ScrollReveal = ({
                         scroller,
                         start: 'top bottom-=20%',
                         end: wordAnimationEnd,
-                        scrub: true
+                        scrub: effectiveScrub,
+                        toggleActions,
+                        once
                     }
                 }
-            );
+            ));
         }
 
         return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            tweens.forEach(tween => {
+                if (tween.scrollTrigger) tween.scrollTrigger.kill();
+                tween.kill();
+            });
         };
-    }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, rotationEnd, wordAnimationEnd, blurStrength]);
+    }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, rotationEnd, wordAnimationEnd, blurStrength, scrub, once, splitText]);
 
     return (
         <h2 ref={containerRef} className={`scroll-reveal ${containerClassName}`}>

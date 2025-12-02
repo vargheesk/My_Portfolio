@@ -161,7 +161,8 @@ export default function Home() {
                                 baseRotation={5}
                                 blurStrength={10}
                                 wordAnimationEnd="bottom center"
-                                scrub={1}
+                                scrub={false}
+                                once={true}
                                 textClassName="text-xl leading-relaxed text-muted-foreground"
                             >
                                 {profile?.bio || "I am a Data Scientist..."}
@@ -171,13 +172,13 @@ export default function Home() {
                             <a
                                 href={profile.resume_url}
                                 target="_blank"
-                                className="inline-block px-8 py-3 text-sm font-bold uppercase tracking-widest border border-foreground hover:bg-foreground hover:text-background transition-colors"
+                                className="inline-block px-8 py-3 text-sm font-normal uppercase tracking-widest border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
                             >
                                 Download Resume
                             </a>
                         )}
                     </div>
-                    <div className="relative aspect-square bg-muted overflow-hidden rounded-2xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <div className="relative aspect-square bg-gray-100 dark:bg-neutral-800 overflow-hidden rounded-2xl shadow-2xl">
                         <img
                             src={profile?.avatar_url || "/profile.png"}
                             onError={(e) => {

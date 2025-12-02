@@ -37,7 +37,7 @@ export function InteractiveGridPattern({
                         d={`M.5 ${height}V.5H${width}`}
                         fill="none"
                         strokeDasharray="0"
-                        className="stroke-neutral-200/50 dark:stroke-neutral-800/50"
+                        className="stroke-neutral-300/50 dark:stroke-white/20"
                     />
                 </pattern>
             </defs>

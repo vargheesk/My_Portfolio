@@ -3,6 +3,8 @@ import { supabase } from "../lib/supabase";
 import ProjectCard from "../components/ProjectCard";
 import LoadingScreen from "../components/LoadingScreen";
 
+import { SparklesSeparator } from "../components/SparklesSeparator";
+
 export default function Projects() {
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState([]);
@@ -27,9 +29,12 @@ export default function Projects() {
     return (
         <div className="min-h-screen pt-32 pb-12 px-6 md:px-12 bg-background relative overflow-hidden">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center">
+                <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-4 text-center">
                     Projects
                 </h1>
+                <div className="mb-16">
+                    <SparklesSeparator />
+                </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />

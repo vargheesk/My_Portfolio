@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { LightRays } from "./ui/light-rays";
+import { SparklesSeparator } from "./SparklesSeparator";
 
 const parseMarkup = (text) => {
     if (!text) return null;
@@ -83,6 +84,9 @@ function HeroSection({ content, title, animation }) {
                         {parseMarkup(title)}
                     </motion.p>
                 )}
+                <div className="mt-8 w-full max-w-2xl mx-auto">
+                    <SparklesSeparator />
+                </div>
             </div>
         </section>
     )

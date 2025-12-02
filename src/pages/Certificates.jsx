@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import LoadingScreen from "../components/LoadingScreen";
 
+import { SparklesSeparator } from "../components/SparklesSeparator";
+
 export default function Certificates() {
     const [loading, setLoading] = useState(true);
     const [certificates, setCertificates] = useState([]);
@@ -26,9 +28,12 @@ export default function Certificates() {
     return (
         <div className="min-h-screen pt-32 pb-12 px-6 md:px-12 bg-background relative overflow-hidden">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-20 text-center">
+                <h1 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-4 text-center">
                     Certifications
                 </h1>
+                <div className="mb-16">
+                    <SparklesSeparator />
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {certificates.map((cert) => (
                         <a

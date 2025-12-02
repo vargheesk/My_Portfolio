@@ -4,6 +4,8 @@ import { DotPattern } from "../components/magicui/dot-pattern";
 import { cn } from "../lib/utils";
 import LoadingScreen from "../components/LoadingScreen";
 
+import { SparklesSeparator } from "../components/SparklesSeparator";
+
 export default function Skills() {
     const [loading, setLoading] = useState(true);
     const [skills, setSkills] = useState([]);
@@ -34,9 +36,12 @@ export default function Skills() {
                 )}
             />
             <div className="relative z-10 max-w-4xl mx-auto">
-                <h1 className="text-center text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-16">
+                <h1 className="text-center text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-4">
                     Technical Skills
                 </h1>
+                <div className="mb-16">
+                    <SparklesSeparator />
+                </div>
 
                 <div className="space-y-12">
                     {Object.entries(skills.reduce((acc, skill) => {

@@ -24,7 +24,7 @@ const ExperienceItem = ({ role, company, start_date, end_date, description, inde
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
         >
             {/* Timeline Line */}
             <div className="absolute left-2 top-2 bottom-[-48px] w-px bg-border group-last:bottom-auto group-last:h-full" />

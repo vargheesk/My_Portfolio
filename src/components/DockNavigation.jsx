@@ -59,7 +59,7 @@ export default function DockNavigation() {
             {links.map((link, i) => (
                 <DockIcon mouseX={mouseX} key={i} {...link} navigate={navigate} />
             ))}
-            <div className="w-px h-8 bg-white/20 dark:bg-white/10 mx-1 self-center" />
+            <div className="w-px h-8 bg-black/20 dark:bg-white/10 mx-1 self-center" />
             <DockThemeToggle mouseX={mouseX} />
         </motion.div>
     );
