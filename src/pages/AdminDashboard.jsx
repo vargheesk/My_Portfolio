@@ -568,7 +568,7 @@ export default function AdminDashboard() {
                                     <div>
                                         <label className="block text-xs font-bold uppercase tracking-widest mb-1">Name</label>
                                         <input name="name" defaultValue={editingSkill?.name} className="w-full bg-transparent border border-border p-2"
-                                            placeholder="Python, JavaScript, React..." />
+                                            placeholder="Python, JavaScript, SQL..." />
 
                                     </div>
                                     <div className="flex gap-4 pt-4">

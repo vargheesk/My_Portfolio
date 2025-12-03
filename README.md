@@ -1,6 +1,6 @@
 # Vargheeskutty Portfolio
 
-A minimalistic, black-and-white data science portfolio website built with React, Vite, and Tailwind CSS.
+A minimalistic, black-and-white data science portfolio website built with Vite and Tailwind CSS.
 
 ## Requirements
 
@@ -9,8 +9,8 @@ A minimalistic, black-and-white data science portfolio website built with React,
 
 ## Tech Stack
 
-- **Frontend**: React, Vite, Tailwind CSS
-- **UI Components**: Framer Motion, Lucide React
+- **Frontend**: Vite, Tailwind CSS
+- **UI Components**: Framer Motion, Lucide
 - **Backend/Database**: Supabase
 
 ## Setup & Installation
