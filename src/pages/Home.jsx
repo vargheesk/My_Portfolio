@@ -64,8 +64,16 @@ export default function Home() {
         fetchData();
     }, []);
 
+    // Collect all images that need to be preloaded
+    const imagesToPreload = [
+        profile?.avatar_url || "/profile.png",
+        "/resume_sticker.png",
+        ...projects.filter(p => p.is_featured).map(p => p.image_url).filter(Boolean),
+        ...certificates.filter(c => c.is_featured).map(c => c.image_url).filter(Boolean),
+    ];
+
     if (loading) {
-        return <LoadingScreen onComplete={() => setLoading(false)} />;
+        return <LoadingScreen onComplete={() => setLoading(false)} imagesToPreload={imagesToPreload} />;
     }
 
     // Prepare skills for Variable Proximity (Dock) and Logo Loop
